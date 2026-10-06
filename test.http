@@ -1,0 +1,51 @@
+### GET ALL
+GET http://localhost:3000/api/plants
+
+###
+
+### GET BY ID
+GET http://localhost:3000/api/plants/31
+
+###
+
+### SEARCH
+GET http://localhost:3000/api/plants/search?name=Mint
+
+###
+
+### ADD
+POST http://localhost:3000/api/plants
+Content-Type: application/json
+
+{
+  "common_name": "Mint",
+  "scientific_name": "Mentha",
+  "family": "Lamiaceae",
+  "description": "Mint Plant",
+  "uses": "Digestion",
+  "benefits": "Cooling",
+  "precautions": "Avoid excess",
+  "image_url": "mint.jpg"
+}
+
+###
+
+### UPDATE
+PUT http://localhost:3000/api/plants/31
+Content-Type: application/json
+
+{
+  "common_name": "Peppermint",
+  "scientific_name": "Mentha Piperita",
+  "family": "Lamiaceae",
+  "description": "Updated Mint Plant",
+  "uses": "Digestion, Cold",
+  "benefits": "Cooling",
+  "precautions": "Avoid excess use",
+  "image_url": "peppermint.jpg"
+}
+
+###
+
+### DELETE
+DELETE http://localhost:3000/api/plants/31
