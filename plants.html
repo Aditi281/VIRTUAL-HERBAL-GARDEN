@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medicinal Plants</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="index.html">
+                🌿 Virtual Herbal Garden
+            </a>
+
+            <button class="navbar-toggler"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="plants.html">Plants</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Admin</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Search -->
+    <section class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-6">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="form-control form-control-lg"
+                    placeholder="Search medicinal plants...">
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Plants -->
+    <section class="container pb-5">
+
+        <div class="text-center mb-5">
+
+            <h2 class="text-success fw-bold">
+                Explore Medicinal Plants
+            </h2>
+
+            <p class="text-muted">
+                Discover medicinal plants and learn about their benefits.
+            </p>
+
+        </div>
+
+
+        <!-- IMPORTANT: JavaScript will put plants here -->
+        <div id="plantsContainer" class="row g-4">
+
+            <div class="col-12 text-center">
+                <h4>Loading plants...</h4>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-success text-white text-center p-3">
+        © 2026 Virtual Herbal Garden
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Floating AI Chat Widget -->
+    <script src="js/chatWidget.js"></script>
+
+
+    <!-- API CONNECTION -->
+    <script>
+
+        const API_URL = "/api/plants";
+
+        const container = document.getElementById("plantsContainer");
+        const searchInput = document.getElementById("searchInput");
+
+
+        // Get image filename — use the image_url saved by the admin form,
+        // falling back to a default image if it's missing
+        function getImage(plant) {
+
+    const name = (plant.common_name || "").toLowerCase().trim();
+
+    // Tulsi
+    if (name.includes("tulsi") || name.includes("holy basil"))
+        return "images/tulsi.jpg";
+
+    // Amla
+    if (name.includes("amla") || name.includes("indian gooseberry"))
+        return "images/amla.jpg";
+
+    // Giloy
+    if (name.includes("giloy") || name.includes("guduchi"))
+        return "images/giloy.webp";
+
+    // Methi / Fenugreek
+    if (
+        name.includes("methi") ||
+        name.includes("fenugreek") ||
+        name.includes("trigonella")
+    )
+        return "images/fenugreek.jpg";
+
+    // Ajwain
+    if (name.includes("ajwain") || name.includes("aajwain"))
+        return "images/aajwain.jpg";
+
+    // Peppermint
+    if (name.includes("peppermint"))
+        return "images/peppermint.jpg";
+
+    // Cinnamon
+    if (name.includes("cinnamon"))
+        return "images/cinnamon.jpg";
+
+    // Coriander
+    if (name.includes("coriander") || name.includes("dhaniya"))
+        return "images/coriander.jpg";
+
+    // Bael
+    if (name.includes("bael") || name.includes("beal"))
+        return "images/beal.jpg";
+
+    // Licorice / Mulethi
+    if (
+        name.includes("licorice") ||
+        name.includes("mulethi") ||
+        name.includes("yashtimadhu")
+    )
+        return "images/licorice.jpg";
+
+    // Bitter Gourd / Karela
+    if (
+        name.includes("bitter") ||
+        name.includes("karela") ||
+        name.includes("bitter gourd")
+    )
+        return "images/bitter_gourd.jpg";
+
+    // Neem
+    if (name.includes("neem"))
+        return "images/neem.jpg";
+
+    // Ashwagandha
+    if (name.includes("ashwagandha"))
+        return "images/ashwagandha.jpg";
+
+    // Moringa
+    if (name.includes("moringa"))
+        return "images/moringa.jpg";
+
+    // Aloe Vera
+    if (name.includes("aloe"))
+        return "images/aloe_vera.jpg";
+
+    // Brahmi
+    if (name.includes("brahmi"))
+        return "images/brahmi.jpg";
+
+    // Chamomile
+    if (name.includes("chamomile"))
+        return "images/chamomile.jpg";
+
+    // Guggul
+    if (name.includes("guggul"))
+        return "images/guggul.jpg";
+
+    // Manjistha
+    if (name.includes("manjistha"))
+        return "images/manjistha.jpg";
+
+    // Shatavari
+    if (name.includes("shatavari"))
+        return "images/shatavari.jpg";
+
+    // Vasaka
+    if (name.includes("vasaka"))
+        return "images/vasaka.jpg";
+
+    // Lemongrass
+    if (name.includes("lemongrass"))
+        return "images/lemongrass.jpg";
+
+    // Punarnava
+    if (name.includes("punarnava"))
+        return "images/punarnava.jpg";
+
+    // Curry Leaves
+    if (name.includes("curry"))
+        return "images/curry_leaves.jpg";
+
+    // Hibiscus
+    if (name.includes("hibiscus"))
+        return "images/hibiscus.jpg";
+
+    // Jatamansi
+    if (name.includes("jatamansi"))
+        return "images/jatamansi.jpg";
+
+    // Arjuna
+    if (name.includes("arjuna"))
+        return "images/arjuna.jpg";
+
+    // Ginger
+    if (name.includes("ginger"))
+        return "images/ginger.jpg";
+
+    // Garlic
+    if (name.includes("garlic"))
+        return "images/garlic.jpg";
+
+    // Turmeric
+    if (name.includes("turmeric"))
+        return "images/turmeric.jpg";
+
+    // If database has image_url
+    if (plant.image_url) {
+
+        const image = plant.image_url.trim();
+
+        if (image.startsWith("images/")) {
+            return image;
+        }
+
+        return "images/" + image;
+    }
+
+    // Default
+    return "images/hero.jpg";
+}
+
+
+        // Display plants
+        function displayPlants(plants) {
+
+            container.innerHTML = "";
+
+
+            if (plants.length === 0) {
+
+                container.innerHTML = `
+                    <div class="col-12 text-center">
+                        <h4>No plants found</h4>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            plants.forEach(plant => {
+
+                const card = `
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="card shadow-lg h-100">
+
+                            <img
+                                src="${getImage(plant)}"
+                                class="card-img-top"
+                                alt="${plant.common_name}"
+                                style="height:300px; object-fit:cover;"
+                            >
+
+                            <div class="card-body">
+
+                                <h4 class="text-success">
+                                    ${plant.common_name}
+                                </h4>
+
+                                <p>
+                                    <strong>Scientific Name:</strong><br>
+                                    ${plant.scientific_name}
+                                </p>
+
+                                <p>
+                                    <strong>Family:</strong><br>
+                                    ${plant.family}
+                                </p>
+
+                                <a href="plant.html?id=${plant.plant_id}" class="btn btn-success w-100">
+                                    View Details
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+
+                container.innerHTML += card;
+
+            });
+
+        }
+
+
+        // Load all plants
+        async function loadPlants() {
+
+            try {
+
+                const response = await fetch(API_URL);
+
+                if (!response.ok) {
+                    throw new Error("API failed");
+                }
+
+                const plants = await response.json();
+
+                console.log("Plants received:", plants);
+
+                displayPlants(plants);
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+                container.innerHTML = `
+                    <div class="col-12 text-center">
+                        <h4 class="text-danger">
+                            Could not load plants
+                        </h4>
+
+                        <p>
+                            Make sure Node server is running.
+                        </p>
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+        // Search plants
+        searchInput.addEventListener("input", async function () {
+
+            const name = this.value.trim();
+
+
+            if (name === "") {
+
+                loadPlants();
+
+                return;
+            }
+
+
+            try {
+
+                const response = await fetch(
+                    "/api/plants/search?name=" +
+                    encodeURIComponent(name)
+                );
+
+                const plants = await response.json();
+
+                displayPlants(plants);
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+            }
+
+        });
+
+
+        // START
+        loadPlants();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plant Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-success">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="index.html">
+                🌿 Virtual Herbal Garden
+            </a>
+
+        </div>
+    </nav>
+
+
+    <!-- Plant Details -->
+    <div class="container py-5">
+
+        <div id="plantContainer">
+
+            <div class="text-center">
+                <h3>Loading plant...</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+
+   <script>
+
+const params = new URLSearchParams(window.location.search);
+const plantId = params.get("id");
+
+const container = document.getElementById("plantContainer");
+
+
+const imageMap = {
+    "Tulsi (Holy Basil)": "tulsi.jpg",
+    "Neem": "neem.jpg",
+    "Aloe Vera": "aloe_vera.jpg",
+    "Turmeric": "turmeric.jpg",
+    "Ginger": "ginger.jpg",
+    "Ashwagandha": "ashwagandha.jpg",
+    "Amla (Indian Gooseberry)": "amla.jpg",
+    "Brahmi": "brahmi.jpg",
+    "Giloy": "giloy.webp",
+    "Shatavari": "shatavari.jpg",
+    "Fenugreek (Methi)": "fenugreek.jpg",
+    "Peppermint (Pudina)": "peppermint.jpg",
+    "Ajwain (Carom Seeds)": "aajwain.jpg",
+    "Moringa": "moringa.jpg",
+    "Arjuna": "arjuna.jpg",
+    "Cinnamon (Dalchini)": "cinnamon.jpg",
+    "Coriander (Dhania)": "coriander.jpg",
+    "Garlic": "garlic.jpg",
+    "Lemongrass": "lemongrass.jpg",
+    "Curry Leaves": "curry_leaves.jpg",
+    "Vasaka": "vasaka.jpg",
+    "Guggul": "guggul.jpg",
+    "Bael": "beal.jpg",
+    "Punarnava": "punarnava.jpg",
+    "Jatamansi": "jatamansi.jpg",
+    "Manjistha": "manjistha.jpg",
+    "Licorice (Mulethi)": "licorice.jpg",
+    "Bitter Gourd (Karela)": "bitter_gourd.jpg",
+    "Hibiscus": "hibiscus.jpg",
+    "Chamomile": "chamomile.jpg"
+};
+
+
+async function loadPlant() {
+
+    if (!plantId) {
+
+        container.innerHTML = `
+            <div class="alert alert-danger">
+                Plant ID missing.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(`/api/plants/${plantId}`);
+
+        const plant = await response.json();
+
+        console.log("PLANT DATA:", plant);
+
+
+        if (!response.ok) {
+
+            throw new Error(plant.message || "Plant not found");
+
+        }
+
+
+        const imageName =
+            imageMap[plant.common_name] || "hero.jpg";
+
+
+        container.innerHTML = `
+
+            <div class="card shadow-lg">
+
+                <div class="row g-0">
+
+                    <div class="col-md-6">
+
+                        <img
+                            src="images/${imageName}"
+                            class="img-fluid w-100"
+                            style="height:600px; object-fit:cover;"
+                            alt="${plant.common_name}"
+                        >
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="card-body p-5">
+
+                            <h1 class="text-success fw-bold">
+                                ${plant.common_name}
+                            </h1>
+
+                            <hr>
+
+
+                            <h5>Scientific Name</h5>
+
+                            <p>
+                                ${plant.scientific_name || "Not available"}
+                            </p>
+
+
+                            <h5>Family</h5>
+
+                            <p>
+                                ${plant.family || "Not available"}
+                            </p>
+
+
+                            <h5>Description</h5>
+
+                            <p>
+                                ${plant.description || "Not available"}
+                            </p>
+
+
+                            <h5>Uses</h5>
+
+                            <p>
+                                ${plant.uses || "Not available"}
+                            </p>
+
+
+                            <h5>Benefits</h5>
+
+                            <p>
+                                ${plant.benefits || "Not available"}
+                            </p>
+
+
+                            <h5>Precautions</h5>
+
+                            <p>
+                                ${plant.precautions || "Not available"}
+                            </p>
+
+
+                            
+                                href="plants.html"
+                                class="btn btn-success mt-3"
+                            >
+                                Explore More Plants
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+    catch (error) {
+
+        console.error("ERROR:", error);
+
+        container.innerHTML = `
+
+            <div class="text-center">
+
+                <h3 class="text-danger">
+                    ${error.message}
+                </h3>
+
+                
+                    href="plants.html"
+                    class="btn btn-success mt-3"
+                >
+                    Back to Plants
+                </a>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+loadPlant();
+
+</script>
+
+<!-- Floating AI Chat Widget -->
+<script src="js/chatWidget.js"></script>
+
+</body>
+
+</html>
