@@ -1,0 +1,106 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4fff4;
+    color:#333;
+}
+
+/* Navbar */
+
+.navbar{
+    box-shadow:0 3px 15px rgba(0,0,0,.1);
+}
+
+.navbar-brand{
+    font-weight:700;
+}
+
+/* Hero */
+
+.hero{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:url("../images/hero.jpg") center/cover no-repeat;
+    position:relative;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.45);
+}
+
+.hero-content{
+    position:relative;
+    color:white;
+    z-index:2;
+}
+
+.hero h1{
+    font-size:3.5rem;
+    font-weight:700;
+}
+
+.hero p{
+    font-size:1.2rem;
+    margin:20px 0;
+}
+
+.btn-success{
+    border-radius:30px;
+    padding:12px 30px;
+    transition:.3s;
+}
+
+.btn-success:hover{
+    transform:translateY(-3px);
+}
+
+/* Cards */
+
+.card{
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.card img{
+    height:240px;
+    object-fit:cover;
+}
+
+/* Forms */
+
+.form-control,
+textarea{
+    border-radius:12px;
+}
+
+.form-control:focus{
+    box-shadow:none;
+    border-color:#198754;
+}
+
+/* Footer */
+
+footer{
+    margin-top:60px;
+}

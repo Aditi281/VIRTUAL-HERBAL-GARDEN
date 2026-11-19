@@ -2,198 +2,135 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Plant Details</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-success">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+
         <div class="container">
 
             <a class="navbar-brand fw-bold" href="index.html">
+
                 🌿 Virtual Herbal Garden
+
+            </a>
+
+            <a href="plants.html" class="btn btn-light">
+
+                ← Back
+
             </a>
 
         </div>
+
     </nav>
 
-
     <!-- Plant Details -->
+
     <div class="container py-5">
 
-        <div id="plantContainer">
+        <div class="card shadow-lg border-0">
 
-            <div class="text-center">
-                <h3>Loading plant...</h3>
-            </div>
+            <div class="row g-0">
 
-        </div>
+                <div class="col-lg-5">
 
-    </div>
+                    <img src="images/plant-placeholder.jpg"
+                        class="img-fluid h-100 w-100"
+                        style="object-fit:cover;">
 
+                </div>
 
-   <script>
+                <div class="col-lg-7">
 
-const params = new URLSearchParams(window.location.search);
-const plantId = params.get("id");
+                    <div class="card-body p-5">
 
-const container = document.getElementById("plantContainer");
+                        <h2 class="text-success fw-bold">
 
+                            Plant Name
 
-const imageMap = {
-    "Tulsi (Holy Basil)": "tulsi.jpg",
-    "Neem": "neem.jpg",
-    "Aloe Vera": "aloe_vera.jpg",
-    "Turmeric": "turmeric.jpg",
-    "Ginger": "ginger.jpg",
-    "Ashwagandha": "ashwagandha.jpg",
-    "Amla (Indian Gooseberry)": "amla.jpg",
-    "Brahmi": "brahmi.jpg",
-    "Giloy": "giloy.webp",
-    "Shatavari": "shatavari.jpg",
-    "Fenugreek (Methi)": "fenugreek.jpg",
-    "Peppermint (Pudina)": "peppermint.jpg",
-    "Ajwain (Carom Seeds)": "aajwain.jpg",
-    "Moringa": "moringa.jpg",
-    "Arjuna": "arjuna.jpg",
-    "Cinnamon (Dalchini)": "cinnamon.jpg",
-    "Coriander (Dhania)": "coriander.jpg",
-    "Garlic": "garlic.jpg",
-    "Lemongrass": "lemongrass.jpg",
-    "Curry Leaves": "curry_leaves.jpg",
-    "Vasaka": "vasaka.jpg",
-    "Guggul": "guggul.jpg",
-    "Bael": "beal.jpg",
-    "Punarnava": "punarnava.jpg",
-    "Jatamansi": "jatamansi.jpg",
-    "Manjistha": "manjistha.jpg",
-    "Licorice (Mulethi)": "licorice.jpg",
-    "Bitter Gourd (Karela)": "bitter_gourd.jpg",
-    "Hibiscus": "hibiscus.jpg",
-    "Chamomile": "chamomile.jpg"
-};
+                        </h2>
 
+                        <hr>
 
-async function loadPlant() {
+                        <p>
 
-    if (!plantId) {
+                            <strong>Scientific Name</strong>
 
-        container.innerHTML = `
-            <div class="alert alert-danger">
-                Plant ID missing.
-            </div>
-        `;
+                            <br>
 
-        return;
-    }
+                            Scientific Name
 
+                        </p>
 
-    try {
+                        <p>
 
-        const response = await fetch(`/api/plants/${plantId}`);
+                            <strong>Family</strong>
 
-        const plant = await response.json();
+                            <br>
 
-        console.log("PLANT DATA:", plant);
+                            Plant Family
 
+                        </p>
 
-        if (!response.ok) {
+                        <p>
 
-            throw new Error(plant.message || "Plant not found");
+                            <strong>Description</strong>
 
-        }
+                            <br>
 
+                            Plant description will appear here.
 
-        const imageName =
-            imageMap[plant.common_name] || "hero.jpg";
+                        </p>
 
+                        <p>
 
-        container.innerHTML = `
+                            <strong>Uses</strong>
 
-            <div class="card shadow-lg">
+                            <br>
 
-                <div class="row g-0">
+                            Medicinal uses appear here.
 
-                    <div class="col-md-6">
+                        </p>
 
-                        <img
-                            src="images/${imageName}"
-                            class="img-fluid w-100"
-                            style="height:600px; object-fit:cover;"
-                            alt="${plant.common_name}"
-                        >
+                        <p>
 
-                    </div>
+                            <strong>Benefits</strong>
 
+                            <br>
 
-                    <div class="col-md-6">
+                            Benefits appear here.
 
-                        <div class="card-body p-5">
+                        </p>
 
-                            <h1 class="text-success fw-bold">
-                                ${plant.common_name}
-                            </h1>
+                        <p>
 
-                            <hr>
+                            <strong>Precautions</strong>
 
+                            <br>
 
-                            <h5>Scientific Name</h5>
+                            Precautions appear here.
 
-                            <p>
-                                ${plant.scientific_name || "Not available"}
-                            </p>
+                        </p>
 
+                        <a href="plants.html" class="btn btn-success">
 
-                            <h5>Family</h5>
+                            Explore More Plants
 
-                            <p>
-                                ${plant.family || "Not available"}
-                            </p>
-
-
-                            <h5>Description</h5>
-
-                            <p>
-                                ${plant.description || "Not available"}
-                            </p>
-
-
-                            <h5>Uses</h5>
-
-                            <p>
-                                ${plant.uses || "Not available"}
-                            </p>
-
-
-                            <h5>Benefits</h5>
-
-                            <p>
-                                ${plant.benefits || "Not available"}
-                            </p>
-
-
-                            <h5>Precautions</h5>
-
-                            <p>
-                                ${plant.precautions || "Not available"}
-                            </p>
-
-
-                            
-                                href="plants.html"
-                                class="btn btn-success mt-3"
-                            >
-                                Explore More Plants
-                            </a>
-
-                        </div>
+                        </a>
 
                     </div>
 
@@ -201,44 +138,15 @@ async function loadPlant() {
 
             </div>
 
-        `;
+        </div>
 
-    }
+    </div>
 
-    catch (error) {
+    <footer class="bg-success text-white text-center p-3">
 
-        console.error("ERROR:", error);
+        © 2026 Virtual Herbal Garden
 
-        container.innerHTML = `
-
-            <div class="text-center">
-
-                <h3 class="text-danger">
-                    ${error.message}
-                </h3>
-
-                
-                    href="plants.html"
-                    class="btn btn-success mt-3"
-                >
-                    Back to Plants
-                </a>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-loadPlant();
-
-</script>
-
-<!-- Floating AI Chat Widget -->
-<script src="js/chatWidget.js"></script>
+    </footer>
 
 </body>
 
